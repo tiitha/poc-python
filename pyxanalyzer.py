@@ -45,24 +45,28 @@ def follow():
                 events = []
                 for f in f2bf:
                         pointer = f2bf[f]
-                        with open(f, "r") as fo:
+                        try:
+                                with open(f, "r") as fo:
 
 # currently set up as tail -f (follow from the current pointer)
 # if you want the new files to be analyzed from the beginning, comment out the following four lines
 
-                                if pointer == 0:
-                                        fo.seek(0,2)
-                                        f2bf[f] = fo.tell()
-                                else:
-                                        fo.seek(pointer)
+                                        if pointer == 0:
+                                                fo.seek(0,2)
+                                                f2bf[f] = fo.tell()
+                                        else:
+                                                fo.seek(pointer)
 
-                                buf = fo.read(buffer_size)
-                                i = buf.rfind(line_break)
-                                if i == -1:
-                                        continue;
+                                        buf = fo.read(buffer_size)
+                                        i = buf.rfind(line_break)
+                                        if i == -1:
+                                                continue;
 
-                                events += buf[:i].split(line_break)
-                                f2bf[f] += i + len(line_break)
+                                        events += buf[:i].split(line_break)
+                                        f2bf[f] += i + len(line_break)
+                        except:
+                                e = sys.exc_info()[0]
+                                print "Error: %s" % e
 
 # if events are not to be sorted, exclude the list usage in processing
 
