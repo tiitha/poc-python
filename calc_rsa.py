@@ -33,7 +33,7 @@ def decrypt(data):
 	return pow(data, d, n)
 
 # Max. payload limit for ecryption depends on the size of the key (modulus)
-data = 33
+data = 2
 
 
 encrypted = encrypt(data)
