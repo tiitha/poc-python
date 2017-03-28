@@ -9,8 +9,8 @@ p = 3	# first prime number
 q = 11	# second prime number
 n = p * q
 # f(n) = (3-1) * (11-1) = 20
-e = 7	
-d = 3 	# (d * e) % φ(n) = 1
+e = 7	# random coprime to f(n), 1 <  e < f(n) 
+d = 3 	# (d * e) % f(n) = 1
 
 # public key: 7, 33
 # private key: 3, 33
