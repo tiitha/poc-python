@@ -7,14 +7,16 @@ import socket
 import struct
 import logging
 
+'''
+$ python win_17_010.py 192.168.0.1/24
+[+] [192.168.0.14] is likely VULNERABLE to MS17-010! (Windows 7 Ultimate 7600)
+'''
 
 logging.basicConfig(level=logging.INFO, format="%(message)s")
 log = logging.getLogger(__file__)
 
 
 class SMB_HEADER(Structure):
-  """SMB Header decoder.
-  """
 
   _pack_ = 1  # Alignment
 
@@ -43,8 +45,7 @@ class SMB_HEADER(Structure):
 
 
 def generate_smb_proto_payload(*protos):
-    """Generate SMB Protocol. Pakcet protos in order.
-    """
+
     hexdata = []
     for proto in protos:
       hexdata.extend(proto)
@@ -52,8 +53,7 @@ def generate_smb_proto_payload(*protos):
 
 
 def calculate_doublepulsar_xor_key(s):
-    """Calaculate Doublepulsar Xor Key
-    """
+
     x = (2 * s ^ (((s & 0xff00 | (s << 16)) << 8) | (((s >> 16) | s & 0xff0000) >> 8)))
     x = x & 0xffffffff  # this line was added just to truncate to 32 bits
     return x
